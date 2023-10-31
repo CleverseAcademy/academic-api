@@ -7,6 +7,7 @@ import {
   ILoginResultDto,
   ITeacherDto,
 } from "../dto/teacher.dto";
+import { AuthState } from "../middleware/jwt";
 
 export interface Empty {}
 
@@ -17,7 +18,13 @@ export interface ID {
 export interface ICourseHandler {
   getAll: RequestHandler<Empty, ICourseDto[]>;
   updateById: RequestHandler<ID, Course | string, IUpdateCourseDto>;
-  deleteById: RequestHandler<ID, Course>;
+  deleteById: RequestHandler<
+    ID,
+    Course | string,
+    undefined,
+    undefined,
+    AuthState
+  >;
 }
 
 export interface ITeacherHandler {

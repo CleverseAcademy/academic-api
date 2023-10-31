@@ -2,6 +2,7 @@ import { Course } from "@prisma/client";
 import { RequestHandler } from "express";
 import { Empty, ICourseHandler, ID } from ".";
 import { ICourseDto, IUpdateCourseDto } from "../dto/course.dto";
+import { AuthState } from "../middleware/jwt";
 import { ICourseRepository } from "../repositories";
 
 export default class CourseHandler implements ICourseHandler {
@@ -35,7 +36,18 @@ export default class CourseHandler implements ICourseHandler {
       return res.status(200).json(result);
     };
 
-  public deleteById: RequestHandler<ID, Course> = async (req, res) => {
+  public deleteById: RequestHandler<
+    ID,
+    Course | string,
+    undefined,
+    undefined,
+    AuthState
+  > = async (req, res) => {
+    const { instructorId } = await this.repo.getById(req.params.id);
+
+    if (instructorId !== res.locals.user.id)
+      return res.status(403).send("You're not the owner of this course");
+
     const result = await this.repo.delete(req.params.id);
 
     return res.status(200).json(result);

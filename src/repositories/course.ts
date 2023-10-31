@@ -14,7 +14,24 @@ export default class CourseRepository implements ICourseRepository {
   public getAll(): Promise<ICourseDto[]> {
     return this.prisma.course.findMany({
       include: {
-        instructor: true,
+        instructor: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+  }
+
+  async getById(id: string): Promise<ICourseDto> {
+    return await this.prisma.course.findUniqueOrThrow({
+      where: { id: id },
+      include: {
+        instructor: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
   }
