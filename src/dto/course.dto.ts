@@ -14,5 +14,5 @@ export interface IUpdateCourseDto {
 }
 
 export interface ICourseDto extends Course {
-  instructor: Teacher;
+  instructor: Pick<Teacher, "name">;
 }
