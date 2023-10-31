@@ -1,7 +1,12 @@
 import { Course } from "@prisma/client";
 import { RequestHandler } from "express";
 import { ICourseDto, IUpdateCourseDto } from "../dto/course.dto";
-import { ICreateTeacherDto, ITeacherDto } from "../dto/teacher.dto";
+import {
+  ICreateTeacherDto,
+  ILoginDto,
+  ILoginResultDto,
+  ITeacherDto,
+} from "../dto/teacher.dto";
 
 export interface Empty {}
 
@@ -17,4 +22,5 @@ export interface ICourseHandler {
 
 export interface ITeacherHandler {
   register: RequestHandler<Empty, ITeacherDto, ICreateTeacherDto>;
+  login: RequestHandler<Empty, ILoginResultDto, ILoginDto>;
 }

@@ -10,3 +10,16 @@ export interface ITeacherDto {
   username: string;
   createdAt: Date;
 }
+
+export interface ILoginDto {
+  username: string;
+  password: string;
+}
+
+export type ILoginResultDto =
+  | {
+      id: string;
+      username: string;
+      token: string;
+    }
+  | { err: string };

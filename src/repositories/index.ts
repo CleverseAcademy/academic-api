@@ -1,4 +1,4 @@
-import { Course } from "@prisma/client";
+import { Course, Teacher } from "@prisma/client";
 import { ICourseDto } from "../dto/course.dto";
 import { ICreateTeacherDto, ITeacherDto } from "../dto/teacher.dto";
 
@@ -24,4 +24,5 @@ export interface ICourseRepository {
 
 export interface ITeacherRepository {
   create(teacher: ICreateTeacherDto): Promise<ITeacherDto>;
+  findByUsername(username: string): Promise<Teacher>;
 }

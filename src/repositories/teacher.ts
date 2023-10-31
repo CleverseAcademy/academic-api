@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Teacher } from "@prisma/client";
 import { ITeacherRepository } from ".";
 import { ICreateTeacherDto, ITeacherDto } from "../dto/teacher.dto";
 
@@ -15,6 +15,16 @@ export default class TeacherRepository implements ITeacherRepository {
         createdAt: true,
       },
     });
+
+    return result;
+  }
+
+  public async findByUsername(username: string): Promise<Teacher> {
+    const result = await this.prisma.teacher.findUnique({
+      where: { username: username },
+    });
+
+    if (result === null) throw new Error(`Username: ${username} not found`);
 
     return result;
   }

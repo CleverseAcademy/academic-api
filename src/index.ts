@@ -35,6 +35,7 @@ const teacherRouter = express.Router();
 app.use("/teacher", teacherRouter);
 
 teacherRouter.post("/register", teacherHandler.register);
+teacherRouter.post("/login", teacherHandler.login);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
